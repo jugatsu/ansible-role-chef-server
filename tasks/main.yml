@@ -1,0 +1,33 @@
+---
+# tasks file for ansible-role-chef-server
+
+# we only support ansible 2.5 or above
+- name: Check for supported ansible version.
+  assert:
+    that:
+      - "ansible_version.full is version('2.5.0', '>=')"
+    msg: "You must update Ansible to at least 2.5 to use this role."
+
+# we only support Ubuntu distribution
+- name: Check for supported platform.
+  assert:
+    that:
+      - "ansible_distribution == 'Ubuntu'"
+    msg: "This role only supports Ubuntu distribution. {{ ansible_distribution }} is not yet supported!"
+
+- name: Ensure all variable files based on the distribution are loaded
+  include_vars: "{{ item }}"
+  loop:
+    - "{{ ansible_distribution }}.yml"
+
+- name: Ensure all tasks based on the distribution are loaded.
+  include_tasks: "{{ dist_item }}"
+  loop:
+    - "{{ ansible_distribution }}.yml"
+  loop_control:
+    loop_var: dist_item
+
+- name: Ensure command `chef-server-ctl reconfigure` is executed.
+  command: chef-server-ctl reconfigure
+  args:
+    creates: /etc/opscode/pivotal.pem

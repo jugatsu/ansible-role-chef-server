@@ -1,0 +1,5 @@
+---
+# vars file for ansible-role-chef-server
+
+chef_server_apt_repo: "deb https://packages.chef.io/repos/apt/stable {{ ansible_distribution_release }} main"
+chef_server_apt_version: "12.17.33-1"
