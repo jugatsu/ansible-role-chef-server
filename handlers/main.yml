@@ -1,2 +1,5 @@
 ---
 # handlers file for ansible-role-chef-server
+
+- name: reconfigure chef-server
+  command: chef-server-ctl reconfigure

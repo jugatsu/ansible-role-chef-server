@@ -31,3 +31,12 @@
   command: chef-server-ctl reconfigure
   args:
     creates: /etc/opscode/pivotal.pem
+
+- name: Ensure Chef Server is configured.
+  template:
+    dest: /etc/opscode/chef-server.rb
+    src: chef-server.rb.j2
+    owner: root
+    group: root
+    mode: "u=rw,g=r"
+  notify: reconfigure chef-server

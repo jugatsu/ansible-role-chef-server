@@ -1,0 +1,9 @@
+{% if chef_server_ssl_letsencrypt %}
+api_fqdn "{{ chef_server_domain }}"
+bookshelf['vip'] = "{{ chef_server_domain }}"
+nginx['non_ssl_port'] = false
+nginx['ssl_certificate'] = "{{ chef_server_ssl_certificate }}"
+nginx['ssl_certificate_key'] = "{{ chef_server_ssl_certificate_key }}"
+nginx['ssl_ciphers'] = "HIGH:MEDIUM:!LOW:!kEDH:!aNULL:!ADH:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
+nginx['ssl_protocols'] = "TLSv1 TLSv1.1 TLSv1.2"
+{% endif %}

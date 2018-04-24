@@ -1,4 +1,11 @@
 ---
 # defaults file for ansible-role-chef-server
 
-chef_server_name: "chef-server-core"
+# General Settings
+chef_server_domain: "{{ ansible_fqdn }}"
+chef_server_package_name: "chef-server-core"
+
+# Nginx SSL Settings
+chef_server_ssl_letsencrypt: false
+chef_server_ssl_certificate: "/etc/letsencrypt/live/{{ chef_server_domain }}/fullchain.pem"
+chef_server_ssl_certificate_key: "/etc/letsencrypt/live/{{ chef_server_domain }}/privkey.pem"

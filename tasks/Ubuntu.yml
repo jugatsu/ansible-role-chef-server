@@ -27,15 +27,15 @@
 # we need it to prevent package update via apt-get upgrade
 - name: Ensure Chef Server package is pinned.
   copy:
-    dest: /etc/apt/preferences.d/{{ chef_server_name }}
+    dest: /etc/apt/preferences.d/{{ chef_server_package_name }}
     content: |
-      Package: {{ chef_server_name }}
+      Package: {{ chef_server_package_name }}
       Pin: version {{ chef_server_apt_version }}
       Pin-Priority: 1002
 
 - name: Ensure Chef Server packages is installed.
   apt:
-    name: "{{ chef_server_name }}={{ chef_server_apt_version }}"
+    name: "{{ chef_server_package_name }}={{ chef_server_apt_version }}"
     update_cache: "yes"
     cache_valid_time: 3600
     state: present
